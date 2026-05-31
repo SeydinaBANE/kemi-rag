@@ -32,6 +32,9 @@ venv/
 *.swo
 *~
 
+# Logs
+logs/
+
 # Docker
 pgdata/
 

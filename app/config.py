@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import ClassVar
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class Settings(BaseSettings):  # type: ignore[misc]
+class Settings(BaseSettings):
     model_config: ClassVar[SettingsConfigDict] = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
@@ -36,3 +37,6 @@ class Settings(BaseSettings):  # type: ignore[misc]
 
 
 settings = Settings()
+
+if settings.openrouter_api_key:
+    os.environ["OPENROUTER_API_KEY"] = settings.openrouter_api_key

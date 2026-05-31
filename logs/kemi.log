@@ -147,3 +147,20 @@ ValueError: document closed
 2026-05-31 17:22:12.120 | INFO     | app.ingest.pipeline:ingest_file:47 - Indexed CV_Seydina_Mouhamet_BANE-2.pdf: 7 chunks, hash=83d5e9e6ba71
 2026-05-31 17:22:12.121 | INFO     | app.ingest.pipeline:ingest_directory:71 - Ingestion complete: 7 chunks indexed
 2026-05-31 17:22:12.121 | INFO     | __main__:ingest:27 - Ingestion terminee: 7 chunks indexes
+2026-05-31 17:22:42.516 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:22:42.528 | INFO     | app.embeddings.provider:model:22 - Loading embedding model: sentence-transformers/all-MiniLM-L6-v2
+2026-05-31 17:23:58.565 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:23:58.566 | INFO     | app.ingest.pipeline:ingest_directory:64 - Found 1 documents to process
+2026-05-31 17:23:58.574 | INFO     | app.ingest.pipeline:ingest_file:28 - Skipping already indexed document: CV_Seydina_Mouhamet_BANE-2.pdf (hash: 83d5e9e6ba71)
+2026-05-31 17:23:58.574 | INFO     | app.ingest.pipeline:ingest_directory:71 - Ingestion complete: 0 chunks indexed
+2026-05-31 17:23:58.574 | INFO     | __main__:ingest:27 - Ingestion terminee: 0 chunks indexes
+2026-05-31 17:24:25.251 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:24:25.257 | INFO     | app.embeddings.provider:model:22 - Loading embedding model: sentence-transformers/all-MiniLM-L6-v2
+2026-05-31 17:26:04.718 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:26:04.726 | INFO     | app.embeddings.provider:model:22 - Loading embedding model: sentence-transformers/all-MiniLM-L6-v2
+2026-05-31 17:26:55.359 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:26:55.369 | INFO     | app.embeddings.provider:model:22 - Loading embedding model: sentence-transformers/all-MiniLM-L6-v2
+2026-05-31 17:28:26.354 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:28:26.362 | INFO     | app.embeddings.provider:model:22 - Loading embedding model: sentence-transformers/all-MiniLM-L6-v2
+2026-05-31 17:29:25.237 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:29:25.246 | INFO     | app.embeddings.provider:model:22 - Loading embedding model: sentence-transformers/all-MiniLM-L6-v2

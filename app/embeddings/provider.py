@@ -3,7 +3,7 @@ from __future__ import annotations
 from functools import lru_cache
 
 import numpy as np
-from cachetools import LRUCache  # type: ignore[import-untyped]
+from cachetools import LRUCache
 from loguru import logger
 from sentence_transformers import SentenceTransformer
 
@@ -25,7 +25,7 @@ class EmbeddingProvider:
 
     def embed(self, text: str) -> list[float]:
         if text in self._cache:
-            return self._cache[text]  # type: ignore[no-any-return]
+            return self._cache[text]
         embedding: list[float] = self.model.encode(text, normalize_embeddings=True).tolist()
         self._cache[text] = embedding
         return embedding
@@ -58,6 +58,8 @@ class EmbeddingProvider:
     @property
     def dimension(self) -> int:
         result = self.model.get_sentence_embedding_dimension()
+        if result is None:
+            return 384  # all-MiniLM-L6-v2 default
         return int(result)
 
 
