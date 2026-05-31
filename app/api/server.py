@@ -3,6 +3,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.dashboard import router as dashboard_router
 from app.api.routes import router
 from app.logging import setup_logging
 
@@ -25,6 +26,7 @@ def create_app() -> FastAPI:
     )
 
     app.include_router(router)
+    app.include_router(dashboard_router)
 
     return app
 

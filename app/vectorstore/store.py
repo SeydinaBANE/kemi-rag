@@ -124,3 +124,21 @@ class VectorStore:
         with self.get_session() as session:
             result = session.query(DocumentChunk).count()
             return int(result)
+
+    def get_documents(self) -> list[dict[str, Any]]:
+        with self.get_session() as session:
+            from sqlalchemy import func
+
+            rows = (
+                session.query(
+                    DocumentChunk.document_name,
+                    DocumentChunk.document_hash,
+                    func.count(DocumentChunk.id).label("chunk_count"),
+                )
+                .group_by(DocumentChunk.document_name, DocumentChunk.document_hash)
+                .all()
+            )
+            return [
+                {"name": name, "hash": hash_val, "chunk_count": count}
+                for name, hash_val, count in rows
+            ]
