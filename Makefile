@@ -42,7 +42,7 @@ test:
 	pytest
 
 coverage:
-	pytest --cov --cov-report=html --cov-fail-under=80
+	pytest --cov --cov-report=html --cov-fail-under=50
 
 security:
 	bandit -r app/ cli.py

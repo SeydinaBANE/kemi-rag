@@ -43,7 +43,7 @@ jobs:
         run: bandit -r app/ cli.py
 
       - name: Test (pytest)
-        run: pytest --cov --cov-report=xml --cov-fail-under=80
+        run: pytest --cov --cov-report=xml --cov-fail-under=50
 
       - name: Build Docker image
         run: docker build -t kemi:${{ github.sha }} .

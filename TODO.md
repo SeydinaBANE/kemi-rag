@@ -16,6 +16,17 @@
 - [ ] Timeout configurable par etape du graphe
 - [ ] Fallback LLM si OpenRouter est indisponible
 
+## Phase 12b : Tests & Couverture
+
+- [ ] Tests pour `app/agent/nodes/grade.py` (grade node)
+- [ ] Tests pour `app/agent/nodes/retrieve.py` (retrieve node)
+- [ ] Tests pour `app/ingest/pipeline.py` (pipeline complet)
+- [ ] Tests pour `app/vectorstore/store.py` (vector store CRUD)
+- [ ] Tests pour `app/embeddings/provider.py` (embeddings)
+- [ ] Tests pour `app/agent/graph.py` (creation et execution du graphe)
+- [ ] Tests pour `app/utils/retry.py` (retry decorator)
+- [ ] Objectif : couverture >= 80%
+
 ## Phase 13 : UX & Features
 
 - [ ] Streaming de la reponse (SSE)

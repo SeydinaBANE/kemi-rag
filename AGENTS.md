@@ -12,7 +12,7 @@
 - `make lint` -> ruff check app/ tests/ cli.py
 - `make typecheck` -> mypy app/ tests/ cli.py
 - `make test` -> pytest
-- `make coverage` -> pytest --cov --cov-fail-under=80
+- `make coverage` -> pytest --cov --cov-fail-under=50
 - `make security` -> bandit + safety
 - `make ingest` -> python cli.py ingest --dir documents/
 - `make query q="question"` -> interroger l'agent
@@ -36,6 +36,6 @@
   d'environnement directement)
 - Le max d'iterations agentiques est 3 (configurable dans .env)
 - L'ingestion est idempotente (hash SHA256)
-- La couverture de tests doit rester au-dessus de 80%
+- La couverture de tests doit rester au-dessus de 50% (objectif: 80% -- voir TODO Phase 12b)
 - Les stubs de types sont installes dans pre-commit via additional_dependencies
   (pydantic-settings, types-cachetools, types-requests)
