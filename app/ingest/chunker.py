@@ -15,9 +15,6 @@ def chunk_document(content: str, metadata: DocumentMetadata) -> list[Chunk]:
     )
 
     texts = splitter.split_text(content)
-    chunks = [
-        Chunk(content=text, index=i, metadata=metadata)
-        for i, text in enumerate(texts)
-    ]
+    chunks = [Chunk(content=text, index=i, metadata=metadata) for i, text in enumerate(texts)]
 
     return chunks

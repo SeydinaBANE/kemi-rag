@@ -1,20 +1,21 @@
 from __future__ import annotations
 
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Generator
+from typing import Any
 
 from loguru import logger
 from pgvector.sqlalchemy import Vector
-from sqlalchemy import Column, Float, Integer, String, Text, create_engine, text
-from sqlalchemy.orm import declarative_base, sessionmaker, Session
+from sqlalchemy import Column, Integer, String, Text, create_engine, text
+from sqlalchemy.orm import Session, declarative_base, sessionmaker
 
 from app.config import settings
 from app.domain.schemas import Chunk
 
-Base = declarative_base()
+Base: Any = declarative_base()
 
 
-class DocumentChunk(Base):
+class DocumentChunk(Base):  # type: ignore[misc]
     __tablename__ = "document_chunks"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -32,7 +33,7 @@ class VectorStore:
         self._session_factory = None
 
     @property
-    def engine(self):
+    def engine(self) -> Any:
         if self._engine is None:
             self._engine = create_engine(
                 self.connection_string,
@@ -44,7 +45,7 @@ class VectorStore:
         return self._engine
 
     @property
-    def session_factory(self):
+    def session_factory(self) -> Any:
         if self._session_factory is None:
             self._session_factory = sessionmaker(bind=self.engine)
         return self._session_factory
@@ -82,7 +83,7 @@ class VectorStore:
             return
 
         with self.get_session() as session:
-            for chunk, embedding in zip(chunks, embeddings):
+            for chunk, embedding in zip(chunks, embeddings, strict=False):
                 db_chunk = DocumentChunk(
                     document_name=chunk.metadata.filename,
                     document_hash=chunk.metadata.sha256,
@@ -92,7 +93,9 @@ class VectorStore:
                 )
                 session.add(db_chunk)
 
-    def similarity_search(self, embedding: list[float], top_k: int = 5) -> list[tuple[str, str, float, int]]:
+    def similarity_search(
+        self, embedding: list[float], top_k: int = 5
+    ) -> list[tuple[str, str, float, int]]:
         with self.get_session() as session:
             results = (
                 session.query(
@@ -114,8 +117,10 @@ class VectorStore:
 
     def count_documents(self) -> int:
         with self.get_session() as session:
-            return session.query(DocumentChunk.document_hash).distinct().count()
+            result = session.query(DocumentChunk.document_hash).distinct().count()
+            return int(result)
 
     def count_chunks(self) -> int:
         with self.get_session() as session:
-            return session.query(DocumentChunk).count()
+            result = session.query(DocumentChunk).count()
+            return int(result)

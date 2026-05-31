@@ -3,7 +3,7 @@ from __future__ import annotations
 from functools import lru_cache
 
 import numpy as np
-from cachetools import LRUCache
+from cachetools import LRUCache  # type: ignore[import-untyped]
 from loguru import logger
 from sentence_transformers import SentenceTransformer
 
@@ -25,8 +25,8 @@ class EmbeddingProvider:
 
     def embed(self, text: str) -> list[float]:
         if text in self._cache:
-            return self._cache[text]
-        embedding = self.model.encode(text, normalize_embeddings=True).tolist()
+            return self._cache[text]  # type: ignore[no-any-return]
+        embedding: list[float] = self.model.encode(text, normalize_embeddings=True).tolist()
         self._cache[text] = embedding
         return embedding
 
@@ -42,13 +42,13 @@ class EmbeddingProvider:
                 uncached.append((i, text))
 
         if uncached:
-            indices, texts_to_embed = zip(*uncached)
+            indices, texts_to_embed = zip(*uncached, strict=False)
             embeddings = self.model.encode(
                 list(texts_to_embed),
                 normalize_embeddings=True,
                 show_progress_bar=False,
             )
-            for idx, emb in zip(indices, embeddings):
+            for idx, emb in zip(indices, embeddings, strict=False):
                 emb_list: list[float] = emb.tolist() if isinstance(emb, np.ndarray) else emb
                 self._cache[texts[idx]] = emb_list
                 results[idx] = emb_list
@@ -57,7 +57,8 @@ class EmbeddingProvider:
 
     @property
     def dimension(self) -> int:
-        return self.model.get_sentence_embedding_dimension()
+        result = self.model.get_sentence_embedding_dimension()
+        return int(result)
 
 
 @lru_cache(maxsize=1)

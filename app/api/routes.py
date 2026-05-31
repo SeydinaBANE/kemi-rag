@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, HTTPException, UploadFile
 from loguru import logger
 
-from app.agent.graph import create_rag_agent, run_agent
+from app.agent.graph import run_agent
 from app.config import settings
 from app.ingest.pipeline import IngestionPipeline
 from app.models import HealthResponse, QueryRequest, QueryResponse, Source
@@ -47,9 +48,7 @@ async def query(request: QueryRequest) -> QueryResponse:
         logger.exception("Query failed")
         raise HTTPException(status_code=500, detail=str(e)) from e
 
-    sources = [
-        Source(**s) for s in result.get("sources", [])
-    ]
+    sources = [Source(**s) for s in result.get("sources", [])]
 
     return QueryResponse(
         question=request.question,
@@ -60,7 +59,7 @@ async def query(request: QueryRequest) -> QueryResponse:
 
 
 @router.post("/ingest")
-async def ingest(file: UploadFile = File(...)) -> dict:
+async def ingest(file: UploadFile) -> dict[str, Any]:
     supported = {".pdf", ".md", ".txt"}
     ext = Path(file.filename or "").suffix.lower()
 

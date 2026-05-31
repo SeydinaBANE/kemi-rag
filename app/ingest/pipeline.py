@@ -4,7 +4,7 @@ from pathlib import Path
 
 from loguru import logger
 
-from app.domain.schemas import Chunk, DocumentMetadata
+from app.domain.schemas import DocumentMetadata
 from app.embeddings.provider import EmbeddingProvider
 from app.ingest.chunker import chunk_document
 from app.ingest.loader import load_document
@@ -25,7 +25,11 @@ class IngestionPipeline:
         file_hash = sha256_file(str(path))
 
         if self.vector_store.document_exists(file_hash):
-            logger.info("Skipping already indexed document: {path} (hash: {hash})", path=path.name, hash=file_hash[:12])
+            logger.info(
+                "Skipping already indexed document: {path} (hash: {hash})",
+                path=path.name,
+                hash=file_hash[:12],
+            )
             return 0
 
         content = load_document(path)

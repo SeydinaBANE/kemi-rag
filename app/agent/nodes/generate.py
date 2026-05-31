@@ -6,27 +6,31 @@ from langchain_openrouter import ChatOpenRouter
 from app.agent.state import GraphState
 from app.config import settings
 
-GENERATE_PROMPT = ChatPromptTemplate.from_messages([
-    (
-        "system",
-        "You are a helpful assistant for question-answering tasks.\n"
-        "Use the following pieces of retrieved context to answer the question.\n"
-        "If you don't know the answer, say that you don't know.\n"
-        "Cite your sources by mentioning the document name for each piece of information.\n"
-        "Keep the answer concise and well-structured.\n\n"
-        "Context:\n{context}",
-    ),
-    ("human", "Question: {question}"),
-])
+GENERATE_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            "You are a helpful assistant for question-answering tasks.\n"
+            "Use the following pieces of retrieved context to answer the question.\n"
+            "If you don't know the answer, say that you don't know.\n"
+            "Cite your sources by mentioning the document name for each piece of information.\n"
+            "Keep the answer concise and well-structured.\n\n"
+            "Context:\n{context}",
+        ),
+        ("human", "Question: {question}"),
+    ]
+)
 
 
-def generate_node(state: GraphState) -> dict:
+def generate_node(state: GraphState) -> dict[str, str]:
     question = state["question"]
     context = state.get("context", [])
 
-    context_text = "\n\n".join(
-        f"[{i + 1}] {doc}" for i, doc in enumerate(context)
-    ) if context else "No relevant context found."
+    context_text = (
+        "\n\n".join(f"[{i + 1}] {doc}" for i, doc in enumerate(context))
+        if context
+        else "No relevant context found."
+    )
 
     llm = ChatOpenRouter(
         model=settings.llm_model,

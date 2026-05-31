@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from unittest.mock import patch
 
-import pytest
-
 from app.agent.nodes.generate import generate_node
 from app.agent.nodes.rewrite import rewrite_node
 from app.agent.state import GraphState

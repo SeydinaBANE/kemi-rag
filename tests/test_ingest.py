@@ -18,13 +18,12 @@ class TestLoader:
         assert "This is a test text file." in content
 
     def test_unsupported_format(self, tmp_path: Path) -> None:
+        import pytest
+
         path = tmp_path / "test.xyz"
         path.write_text("test")
-        try:
+        with pytest.raises(ValueError):
             load_document(path)
-            assert False, "Should have raised ValueError"
-        except ValueError:
-            pass
 
 
 class TestChunker:

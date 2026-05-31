@@ -60,6 +60,10 @@ strict = true
 ignore_missing_imports = true
 warn_unused_ignores = true
 
+[[tool.mypy.overrides]]
+module = ["tests.*", "app.api.routes"]
+disable_error_code = ["misc"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]

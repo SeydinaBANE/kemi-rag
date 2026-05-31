@@ -6,19 +6,21 @@ from langchain_openrouter import ChatOpenRouter
 from app.agent.state import GraphState
 from app.config import settings
 
-REWRITE_PROMPT = ChatPromptTemplate.from_messages([
-    (
-        "system",
-        "You are a query rewriter for a RAG system. "
-        "Given the original user question, rewrite it to be more specific and search-friendly. "
-        "Fix vague wording, add missing context, and make it concise. "
-        "Return only the rewritten question, nothing else.",
-    ),
-    ("human", "Original question: {question}\n\nRewritten question:"),
-])
+REWRITE_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            "You are a query rewriter for a RAG system. "
+            "Given the original user question, rewrite it to be more specific and search-friendly. "
+            "Fix vague wording, add missing context, and make it concise. "
+            "Return only the rewritten question, nothing else.",
+        ),
+        ("human", "Original question: {question}\n\nRewritten question:"),
+    ]
+)
 
 
-def rewrite_node(state: GraphState) -> dict:
+def rewrite_node(state: GraphState) -> dict[str, str]:
     question = state["question"]
 
     llm = ChatOpenRouter(

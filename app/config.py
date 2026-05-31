@@ -6,7 +6,7 @@ from typing import ClassVar
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class Settings(BaseSettings):
+class Settings(BaseSettings):  # type: ignore[misc]
     model_config: ClassVar[SettingsConfigDict] = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     chunk_size: int = 512
     chunk_overlap: int = 64
 
-    api_host: str = "0.0.0.0"
+    api_host: str = "0.0.0.0"  # nosec - dev server binding
     api_port: int = 8000
 
     @property

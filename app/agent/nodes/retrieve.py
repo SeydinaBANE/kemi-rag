@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from app.agent.state import GraphState
 from app.embeddings.provider import EmbeddingProvider
 from app.vectorstore.store import VectorStore
@@ -9,7 +11,7 @@ def retrieve_node(
     state: GraphState,
     vector_store: VectorStore | None = None,
     embedding_provider: EmbeddingProvider | None = None,
-) -> dict:
+) -> dict[str, Any]:
     vector_store = vector_store or VectorStore()
     embedding_provider = embedding_provider or EmbeddingProvider()
 
@@ -20,18 +22,20 @@ def retrieve_node(
     results = vector_store.similarity_search(query_embedding, top_k=top_k)
 
     contexts: list[str] = []
-    sources: list[dict] = []
+    sources: list[dict[str, Any]] = []
     documents: list[str] = []
 
     for content, doc_name, score, chunk_idx in results:
         contexts.append(content)
         documents.append(doc_name)
-        sources.append({
-            "document": doc_name,
-            "chunk_index": chunk_idx,
-            "content": content[:200],
-            "score": score,
-        })
+        sources.append(
+            {
+                "document": doc_name,
+                "chunk_index": chunk_idx,
+                "content": content[:200],
+                "score": score,
+            }
+        )
 
     return {
         "context": contexts,

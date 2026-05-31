@@ -10,9 +10,7 @@ def load_document(path: Path) -> str:
 
     if ext == ".pdf":
         return _load_pdf(path)
-    elif ext == ".md":
-        return _load_text(path)
-    elif ext == ".txt":
+    elif ext == ".md" or ext == ".txt":
         return _load_text(path)
     else:
         msg = f"Unsupported file type: {ext}"
@@ -34,7 +32,12 @@ def _load_pdf(path: Path) -> str:
                 text_parts.append(page_text)
 
     content = "\n\n".join(text_parts)
-    logger.info("Loaded PDF: {path} ({pages} pages, {chars} chars)", path=path.name, pages=len(doc), chars=len(content))
+    logger.info(
+        "Loaded PDF: {path} ({pages} pages, {chars} chars)",
+        path=path.name,
+        pages=len(doc),
+        chars=len(content),
+    )
     return content
 
 

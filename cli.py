@@ -5,7 +5,7 @@ from pathlib import Path
 import fire
 from loguru import logger
 
-from app.agent.graph import create_rag_agent, run_agent
+from app.agent.graph import run_agent
 from app.ingest.pipeline import IngestionPipeline
 from app.logging import setup_logging
 from app.vectorstore.store import VectorStore
@@ -65,7 +65,9 @@ def stats() -> None:
 def serve() -> None:
     """Lancer le serveur FastAPI."""
     import uvicorn
+
     from app.config import settings
+
     setup_logging()
     uvicorn.run(
         "app.api.server:app",
@@ -76,12 +78,14 @@ def serve() -> None:
 
 
 def main() -> None:
-    fire.Fire({
-        "ingest": ingest,
-        "query": query,
-        "stats": stats,
-        "serve": serve,
-    })
+    fire.Fire(
+        {
+            "ingest": ingest,
+            "query": query,
+            "stats": stats,
+            "serve": serve,
+        }
+    )
 
 
 if __name__ == "__main__":

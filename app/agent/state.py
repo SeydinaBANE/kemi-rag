@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Annotated, TypedDict
+from typing import Annotated, Any, TypedDict
 
 from langgraph.graph.message import add_messages
 
@@ -10,8 +10,8 @@ class GraphState(TypedDict):
     rewritten_question: str
     context: list[str]
     documents: list[str]
-    sources: list[dict]
+    sources: list[dict[str, Any]]
     answer: str
     iterations: int
-    messages: Annotated[list, add_messages]
-    trace: list[dict]
+    messages: Annotated[list[Any], add_messages]
+    trace: list[dict[str, Any]]

@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+from typing import Any
+
 from langgraph.graph import END, StateGraph
 
 from app.agent.nodes.generate import generate_node
 from app.agent.nodes.grade import grade_node
 from app.agent.nodes.retrieve import retrieve_node
 from app.agent.nodes.rewrite import rewrite_node
-from app.agent.router import route_after_generation, route_after_retrieval
+from app.agent.router import route_after_generate, route_after_retrieval
 from app.agent.state import GraphState
 
 
@@ -36,7 +38,7 @@ def create_rag_agent() -> StateGraph:
 
     workflow.add_conditional_edges(
         "generate",
-        route_after_generation,
+        route_after_generate,
         {
             "retrieve": "retrieve",
             "end": END,
@@ -46,17 +48,19 @@ def create_rag_agent() -> StateGraph:
     return workflow.compile()
 
 
-def run_agent(question: str) -> dict:
+def run_agent(question: str) -> dict[str, Any]:
     agent = create_rag_agent()
-    result = agent.invoke({
-        "question": question,
-        "rewritten_question": "",
-        "context": [],
-        "documents": [],
-        "sources": [],
-        "answer": "",
-        "iterations": 0,
-        "messages": [],
-        "trace": [],
-    })
-    return result
+    result = agent.invoke(
+        {
+            "question": question,
+            "rewritten_question": "",
+            "context": [],
+            "documents": [],
+            "sources": [],
+            "answer": "",
+            "iterations": 0,
+            "messages": [],
+            "trace": [],
+        }
+    )
+    return result  # type: ignore[no-any-return]
