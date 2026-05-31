@@ -5,11 +5,11 @@ Agent RAG agentique avec LangGraph, OpenRouter, et pgvector.
 ## Quick Start
 
 ```bash
-cp .env.example .env     # editer OPENROUTER_API_KEY
-make up                  # PostgreSQL + pgvector
+cp .env.example .env          # editer OPENROUTER_API_KEY
+make up                       # PostgreSQL + pgvector
 pip install -r requirements.txt
 pre-commit install
-make ingest              # indexer documents/
+make ingest                   # indexer documents/
 make query q="Ta question"
 ```
 
@@ -19,22 +19,48 @@ make query q="Ta question"
 Question → retrieve → grade → [rewrite → retrieve] → generate → Reponse
 ```
 
-- **retrieve** : recherche semantique dans PGVector
-- **grade** : LLM juge la pertinence des documents
-- **rewrite** : reformulation de la question si hors-sujet
-- **generate** : contexte + question → reponse avec citations
+- **retrieve** : recherche semantique dans PGVector (top-5 chunks)
+- **grade** : LLM juge la pertinence des documents recuperes
+- **rewrite** : reformulation de la question si tous les documents sont hors-sujet
+- **generate** : contexte + question → reponse avec citations et sources
+
+L'ingestion est idempotente (hash SHA256) — un document deja indexe est ignore.
 
 ## Commandes
 
-| Commande | Description |
-|----------|-------------|
-| `make up` | Docker compose up |
-| `make ingest` | Indexer documents/ |
-| `make query q=...` | Poser une question |
-| `make serve` | Lancer le serveur FastAPI |
-| `make test` | Lancer les tests |
-| `make lint` | Ruff check |
-| `make typecheck` | Mypy check |
+| Commande                | Description                        |
+|-------------------------|------------------------------------|
+| `make up`               | Docker compose up -d               |
+| `make down`             | Docker compose down                |
+| `make serve`            | Lancer le serveur FastAPI en dev   |
+| `make ingest`           | Ingerer les documents              |
+| `make query q=...`      | Poser une question                 |
+| `make lint`             | Ruff check                         |
+| `make typecheck`        | Mypy check                         |
+| `make test`             | Pytest                             |
+| `make coverage`         | Pytest avec couverture (≥80%)      |
+| `make security`         | Bandit + Safety                    |
+| `make precommit`        | Pre-commit run --all-files         |
+| `make docker-build`     | Docker compose build               |
+| `make clean`            | Nettoyer les artefacts             |
+
+## Configuration
+
+Toutes les variables sont dans `.env` :
+
+| Variable                  | Defaut                                      | Description                |
+|---------------------------|---------------------------------------------|----------------------------|
+| `OPENROUTER_API_KEY`      | —                                           | Cle API OpenRouter         |
+| `DATABASE_URL`            | `postgresql://kemi:kemi@localhost:5432/kemi`| URL PostgreSQL             |
+| `LLM_MODEL`               | `openai/gpt-4o-mini`                        | Modele LLM                 |
+| `EMBEDDING_MODEL`         | `sentence-transformers/all-MiniLM-L6-v2`    | Modele d'embeddings local  |
+| `MAX_ITERATIONS`          | `3`                                         | Maximum d'iterations agent |
+| `RETRIEVAL_TOP_K`         | `5`                                         | Nombre de chunks retrieves |
+| `CHUNK_SIZE`              | `512`                                       | Taille des chunks          |
+| `API_PORT`                | `8000`                                      | Port du serveur FastAPI    |
+
+> **Note** : `OPENROUTER_API_KEY` est automatiquement synchronisee dans les variables
+> d'environnement pour `langchain_openrouter` au chargement de la configuration.
 
 ## API
 
@@ -44,12 +70,18 @@ curl -X POST http://localhost:8000/query \
   -d '{"question": "Que contient le document ?"}'
 
 curl http://localhost:8000/health
+
+curl -X POST http://localhost:8000/ingest \
+  -F "file=@document.pdf"
 ```
 
-## CI/CD
+## Tests
 
-- **CI** : ruff → mypy → pytest (cov 80%) → bandit → safety → Docker build
-- **CD** : push main → build image → push GHCR → GitHub Release
+```bash
+make test       # pytest
+make coverage   # pytest --cov --cov-fail-under=80
+make security   # bandit + safety
+```
 
 ## Stack
 
@@ -57,3 +89,5 @@ curl http://localhost:8000/health
 - PostgreSQL + pgvector (Docker)
 - sentence-transformers (embeddings locaux)
 - FastAPI / Uvicorn
+- Ruff / Mypy / Bandit / Safety
+- Pre-commit hooks / GitHub Actions (CI/CD)

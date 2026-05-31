@@ -44,8 +44,14 @@ def grade_node(state: GraphState) -> dict[str, list[str]]:
 
     relevant_contexts: list[str] = []
     for doc in contexts:
-        result: GradingResult = grader.invoke({"question": question, "document": doc})
-        if result.binary_score == "yes":
+        result = grader.invoke({"question": question, "document": doc})
+        if isinstance(result, GradingResult):
+            binary_score = result.binary_score
+        elif isinstance(result, dict):
+            binary_score = result.get("binary_score", "no")
+        else:
+            binary_score = "no"
+        if binary_score == "yes":
             relevant_contexts.append(doc)
 
     return {"context": relevant_contexts}

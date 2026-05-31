@@ -29,8 +29,8 @@ class DocumentChunk(Base):  # type: ignore[misc]
 class VectorStore:
     def __init__(self, connection_string: str | None = None) -> None:
         self.connection_string = connection_string or settings.database_url
-        self._engine = None
-        self._session_factory = None
+        self._engine: Any = None
+        self._session_factory: Any = None
 
     @property
     def engine(self) -> Any:

@@ -1,89 +1,37 @@
 # TODO — Agent RAG Kemi
 
-## Phase 1 : Infrastructure (DevOps)
+> Toutes les phases d'infrastructure et de developpement initial sont terminees.
+> Ce fichier sert desormais de roadmap pour les ameliorations futures.
 
-- [x] Creer `.editorconfig`
-- [x] Creer `.gitignore`
-- [x] Creer `.dockerignore`
-- [x] Creer `.env.example`
-- [x] Creer `VERSION`
-- [x] Creer `CHANGELOG.md`
-- [x] Creer `Makefile`
-- [x] Creer `.pre-commit-config.yaml`
-- [x] Creer `pyproject.toml`
-- [x] Creer `requirements.txt`
-- [x] Creer `Dockerfile`
-- [x] Creer `docker-compose.yml`
-- [x] Creer `.github/dependabot.yml`
-- [x] Creer `.github/workflows/ci.yml`
-- [x] Creer `.github/workflows/cd.yml`
+## Phase 11 : Observabilite
 
-## Phase 2 : Fondations du code
+- [ ] Tracing LangSmith ou OpenTelemetry
+- [ ] Metriques Prometheus (/metrics endpoint)
+- [ ] Alerting sur les erreurs LLM / ingestion
 
-- [x] `app/__init__.py`
-- [x] `app/config.py`
-- [x] `app/logging.py`
-- [x] `app/models.py`
-- [x] `app/domain/__init__.py`
-- [x] `app/domain/schemas.py`
-- [x] `app/utils/__init__.py`
-- [x] `app/utils/retry.py`
-- [x] `app/utils/hash.py`
+## Phase 12 : Performance & Robustesse
 
-## Phase 3 : Embeddings
+- [ ] Indexation incrementale (watcher de fichiers)
+- [ ] Cache de reponse identique (question deja posee)
+- [ ] Timeout configurable par etape du graphe
+- [ ] Fallback LLM si OpenRouter est indisponible
 
-- [x] `app/embeddings/__init__.py`
-- [x] `app/embeddings/provider.py`
+## Phase 13 : UX & Features
 
-## Phase 4 : Ingestion
+- [ ] Streaming de la reponse (SSE)
+- [ ] Mode conversationnel (historique de session)
+- [ ] Support de formats supplementaires (DOCX, HTML, images)
+- [ ] Dashboard (stats, documents indexes, etat du vector store)
 
-- [x] `app/ingest/__init__.py`
-- [x] `app/ingest/loader.py`
-- [x] `app/ingest/chunker.py`
-- [x] `app/ingest/pipeline.py`
+## Phase 14 : Securite & Conformite
 
-## Phase 5 : Vector Store
-
-- [x] `app/vectorstore/__init__.py`
-- [x] `app/vectorstore/store.py`
-
-## Phase 6 : Agent RAG (LangGraph)
-
-- [x] `app/agent/__init__.py`
-- [x] `app/agent/state.py`
-- [x] `app/agent/nodes/__init__.py`
-- [x] `app/agent/nodes/retrieve.py`
-- [x] `app/agent/nodes/grade.py`
-- [x] `app/agent/nodes/rewrite.py`
-- [x] `app/agent/nodes/generate.py`
-- [x] `app/agent/router.py`
-- [x] `app/agent/graph.py`
-
-## Phase 7 : API
-
-- [x] `app/api/__init__.py`
-- [x] `app/api/server.py`
-- [x] `app/api/routes.py`
-
-## Phase 8 : CLI
-
-- [x] `cli.py`
-
-## Phase 9 : Tests
-
-- [x] `tests/__init__.py`
-- [x] `tests/conftest.py`
-- [x] `tests/test_ingest.py`
-- [x] `tests/test_agent.py`
-- [x] `tests/test_api.py`
-
-## Phase 10 : Documentation
-
-- [x] `README.md`
-- [x] `AGENTS.md`
+- [ ] Rate limiting sur l'API
+- [ ] Auth (API key) pour les endpoints sensibles
+- [ ] Scan de vulnerabilite des dependances en CI (deja: safety)
 
 ---
 
 **Legende :**
 - `[ ]` = a faire
 - `[x]` = fait
+- Phases 1-10 : terminees (voire l'historique git pour le detail)

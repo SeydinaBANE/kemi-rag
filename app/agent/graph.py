@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from langgraph.graph import END, StateGraph
+from langgraph.graph.state import CompiledStateGraph
 
 from app.agent.nodes.generate import generate_node
 from app.agent.nodes.grade import grade_node
@@ -12,7 +13,7 @@ from app.agent.router import route_after_generate, route_after_retrieval
 from app.agent.state import GraphState
 
 
-def create_rag_agent() -> StateGraph:
+def create_rag_agent() -> CompiledStateGraph[GraphState, Any, Any, Any]:
     workflow = StateGraph(GraphState)
 
     workflow.add_node("retrieve", retrieve_node)
@@ -49,8 +50,8 @@ def create_rag_agent() -> StateGraph:
 
 
 def run_agent(question: str) -> dict[str, Any]:
-    agent = create_rag_agent()
-    result = agent.invoke(
+    app = create_rag_agent()
+    result = app.invoke(
         {
             "question": question,
             "rewritten_question": "",

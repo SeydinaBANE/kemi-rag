@@ -41,4 +41,5 @@ def generate_node(state: GraphState) -> dict[str, str]:
     chain = GENERATE_PROMPT | llm
     response = chain.invoke({"question": question, "context": context_text})
 
-    return {"answer": response.content.strip()}
+    answer = response.content if isinstance(response.content, str) else str(response.content)
+    return {"answer": answer.strip()}

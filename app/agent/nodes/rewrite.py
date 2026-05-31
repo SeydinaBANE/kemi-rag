@@ -32,5 +32,5 @@ def rewrite_node(state: GraphState) -> dict[str, str]:
     chain = REWRITE_PROMPT | llm
     response = chain.invoke({"question": question})
 
-    rewritten = response.content.strip()
-    return {"rewritten_question": rewritten}
+    rewritten = response.content if isinstance(response.content, str) else str(response.content)
+    return {"rewritten_question": rewritten.strip()}
