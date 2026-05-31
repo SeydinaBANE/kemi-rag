@@ -54,8 +54,7 @@ class TestGenerateNode:
 
         with patch("app.agent.nodes.generate.ChatOpenRouter") as mock_llm:
             mock_instance = mock_llm.return_value
-            mock_chain = mock_instance.__or__.return_value
-            mock_response = mock_chain.invoke.return_value
+            mock_response = mock_instance.return_value
             mock_response.content = "Python is a programming language."
 
             result = generate_node(state)
@@ -78,8 +77,7 @@ class TestGenerateNode:
 
         with patch("app.agent.nodes.generate.ChatOpenRouter") as mock_llm:
             mock_instance = mock_llm.return_value
-            mock_chain = mock_instance.__or__.return_value
-            mock_response = mock_chain.invoke.return_value
+            mock_response = mock_instance.return_value
             mock_response.content = "Python is a high-level programming language."
 
             result = generate_node(state)
@@ -104,8 +102,7 @@ class TestRewriteNode:
 
         with patch("app.agent.nodes.rewrite.ChatOpenRouter") as mock_llm:
             mock_instance = mock_llm.return_value
-            mock_chain = mock_instance.__or__.return_value
-            mock_response = mock_chain.invoke.return_value
+            mock_response = mock_instance.return_value
             mock_response.content = "What is the RAG agent Kemi?"
 
             result = rewrite_node(state)

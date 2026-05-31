@@ -20,7 +20,7 @@ class TestHealth:
 class TestQuery:
     def test_query_empty_question(self) -> None:
         response = client.post("/query", json={"question": ""})
-        assert response.status_code == 400
+        assert response.status_code == 422
 
     def test_query_missing_question(self) -> None:
         response = client.post("/query", json={})
