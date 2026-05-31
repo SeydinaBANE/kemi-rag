@@ -20,7 +20,7 @@ uvicorn[standard]>=0.34
 httpx>=0.28
 unstructured>=0.16
 pymupdf>=1.25
-python-multipart>=0.0
+python-multipart>=0.0.29
 cachetools>=5.0
 
 # Dev
