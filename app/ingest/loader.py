@@ -26,6 +26,7 @@ def _load_pdf(path: Path) -> str:
 
     text_parts: list[str] = []
     with fitz.open(path) as doc:
+        page_count = len(doc)
         for page in doc:
             page_text = page.get_text()
             if page_text.strip():
@@ -35,7 +36,7 @@ def _load_pdf(path: Path) -> str:
     logger.info(
         "Loaded PDF: {path} ({pages} pages, {chars} chars)",
         path=path.name,
-        pages=len(doc),
+        pages=page_count,
         chars=len(content),
     )
     return content

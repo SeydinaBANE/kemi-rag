@@ -1,0 +1,149 @@
+2026-05-31 17:18:11.107 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:18:11.144 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:18:53.946 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:19:01.354 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:20:19.517 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:20:19.517 | INFO     | app.ingest.pipeline:ingest_directory:64 - Found 1 documents to process
+2026-05-31 17:20:21.304 | ERROR    | app.ingest.pipeline:ingest_directory:69 - Failed to ingest documents/CV_Seydina_Mouhamet_BANE-2.pdf
+Traceback (most recent call last):
+
+  File "/Users/baneseydina/Desktop/kemi/cli.py", line 92, in <module>
+    main()
+    └ <function main at 0x13ebb3600>
+
+  File "/Users/baneseydina/Desktop/kemi/cli.py", line 81, in main
+    fire.Fire(
+    │    └ <function Fire at 0x103f61760>
+    └ <module 'fire' from '/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/fire/__init__.py'>
+
+  File "/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/fire/core.py", line 135, in Fire
+    component_trace = _Fire(component, args, parsed_flag_args, context, name)
+                      │     │          │     │                 │        └ 'cli.py'
+                      │     │          │     │                 └ {}
+                      │     │          │     └ Namespace(verbose=False, interactive=False, separator='-', completion=None, help=False, trace=False)
+                      │     │          └ ['ingest', '--dir', 'documents/']
+                      │     └ {'ingest': <function ingest at 0x1036cc7c0>, 'query': <function query at 0x1085ba700>, 'stats': <function stats at 0x13ebb34c...
+                      └ <function _Fire at 0x103fed760>
+  File "/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/fire/core.py", line 468, in _Fire
+    component, remaining_args = _CallAndUpdateTrace(
+    │                           └ <function _CallAndUpdateTrace at 0x103fed8a0>
+    └ <function ingest at 0x1036cc7c0>
+  File "/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/fire/core.py", line 684, in _CallAndUpdateTrace
+    component = fn(*varargs, **kwargs)
+                │   │          └ {}
+                │   └ ['documents/']
+                └ <function ingest at 0x1036cc7c0>
+
+  File "/Users/baneseydina/Desktop/kemi/cli.py", line 26, in ingest
+    total = pipeline.ingest_directory(directory)
+            │        │                └ PosixPath('documents')
+            │        └ <function IngestionPipeline.ingest_directory at 0x13ebb3380>
+            └ <app.ingest.pipeline.IngestionPipeline object at 0x13b039bd0>
+
+> File "/Users/baneseydina/Desktop/kemi/app/ingest/pipeline.py", line 67, in ingest_directory
+    total += self.ingest_file(file)
+    │        │    │           └ PosixPath('documents/CV_Seydina_Mouhamet_BANE-2.pdf')
+    │        │    └ <function IngestionPipeline.ingest_file at 0x13ebb32e0>
+    │        └ <app.ingest.pipeline.IngestionPipeline object at 0x13b039bd0>
+    └ 0
+
+  File "/Users/baneseydina/Desktop/kemi/app/ingest/pipeline.py", line 35, in ingest_file
+    content = load_document(path)
+              │             └ PosixPath('documents/CV_Seydina_Mouhamet_BANE-2.pdf')
+              └ <function load_document at 0x13eb17880>
+
+  File "/Users/baneseydina/Desktop/kemi/app/ingest/loader.py", line 12, in load_document
+    return _load_pdf(path)
+           │         └ PosixPath('documents/CV_Seydina_Mouhamet_BANE-2.pdf')
+           └ <function _load_pdf at 0x13eb17920>
+
+  File "/Users/baneseydina/Desktop/kemi/app/ingest/loader.py", line 38, in _load_pdf
+    pages=len(doc),
+              └ closed Document('documents/CV_Seydina_Mouhamet_BANE-2.pdf')
+
+  File "/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/pymupdf/__init__.py", line 3054, in __len__
+    return self.page_count
+           │    └ <property object at 0x14fc6fa60>
+           └ closed Document('documents/CV_Seydina_Mouhamet_BANE-2.pdf')
+  File "/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/pymupdf/__init__.py", line 5966, in page_count
+    raise ValueError('document closed')
+
+ValueError: document closed
+2026-05-31 17:20:21.311 | INFO     | app.ingest.pipeline:ingest_directory:71 - Ingestion complete: 0 chunks indexed
+2026-05-31 17:20:21.311 | INFO     | __main__:ingest:27 - Ingestion terminee: 0 chunks indexes
+2026-05-31 17:20:51.696 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:20:51.697 | INFO     | app.ingest.pipeline:ingest_directory:64 - Found 1 documents to process
+2026-05-31 17:20:51.824 | ERROR    | app.ingest.pipeline:ingest_directory:69 - Failed to ingest documents/CV_Seydina_Mouhamet_BANE-2.pdf
+Traceback (most recent call last):
+
+  File "/Users/baneseydina/Desktop/kemi/cli.py", line 92, in <module>
+    main()
+    └ <function main at 0x162737600>
+
+  File "/Users/baneseydina/Desktop/kemi/cli.py", line 81, in main
+    fire.Fire(
+    │    └ <function Fire at 0x1010ad760>
+    └ <module 'fire' from '/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/fire/__init__.py'>
+
+  File "/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/fire/core.py", line 135, in Fire
+    component_trace = _Fire(component, args, parsed_flag_args, context, name)
+                      │     │          │     │                 │        └ 'cli.py'
+                      │     │          │     │                 └ {}
+                      │     │          │     └ Namespace(verbose=False, interactive=False, separator='-', completion=None, help=False, trace=False)
+                      │     │          └ ['ingest', '--dir', 'documents/']
+                      │     └ {'ingest': <function ingest at 0x10092c7c0>, 'query': <function query at 0x115d96700>, 'stats': <function stats at 0x1627374c...
+                      └ <function _Fire at 0x101139760>
+  File "/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/fire/core.py", line 468, in _Fire
+    component, remaining_args = _CallAndUpdateTrace(
+    │                           └ <function _CallAndUpdateTrace at 0x1011398a0>
+    └ <function ingest at 0x10092c7c0>
+  File "/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/fire/core.py", line 684, in _CallAndUpdateTrace
+    component = fn(*varargs, **kwargs)
+                │   │          └ {}
+                │   └ ['documents/']
+                └ <function ingest at 0x10092c7c0>
+
+  File "/Users/baneseydina/Desktop/kemi/cli.py", line 26, in ingest
+    total = pipeline.ingest_directory(directory)
+            │        │                └ PosixPath('documents')
+            │        └ <function IngestionPipeline.ingest_directory at 0x162737380>
+            └ <app.ingest.pipeline.IngestionPipeline object at 0x162254590>
+
+> File "/Users/baneseydina/Desktop/kemi/app/ingest/pipeline.py", line 67, in ingest_directory
+    total += self.ingest_file(file)
+    │        │    │           └ PosixPath('documents/CV_Seydina_Mouhamet_BANE-2.pdf')
+    │        │    └ <function IngestionPipeline.ingest_file at 0x1627372e0>
+    │        └ <app.ingest.pipeline.IngestionPipeline object at 0x162254590>
+    └ 0
+
+  File "/Users/baneseydina/Desktop/kemi/app/ingest/pipeline.py", line 35, in ingest_file
+    content = load_document(path)
+              │             └ PosixPath('documents/CV_Seydina_Mouhamet_BANE-2.pdf')
+              └ <function load_document at 0x162697880>
+
+  File "/Users/baneseydina/Desktop/kemi/app/ingest/loader.py", line 12, in load_document
+    return _load_pdf(path)
+           │         └ PosixPath('documents/CV_Seydina_Mouhamet_BANE-2.pdf')
+           └ <function _load_pdf at 0x162697920>
+
+  File "/Users/baneseydina/Desktop/kemi/app/ingest/loader.py", line 38, in _load_pdf
+    pages=len(doc),
+              └ closed Document('documents/CV_Seydina_Mouhamet_BANE-2.pdf')
+
+  File "/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/pymupdf/__init__.py", line 3054, in __len__
+    return self.page_count
+           │    └ <property object at 0x16449ba10>
+           └ closed Document('documents/CV_Seydina_Mouhamet_BANE-2.pdf')
+  File "/Users/baneseydina/Desktop/kemi/.venv/lib/python3.11/site-packages/pymupdf/__init__.py", line 5966, in page_count
+    raise ValueError('document closed')
+
+ValueError: document closed
+2026-05-31 17:20:51.829 | INFO     | app.ingest.pipeline:ingest_directory:71 - Ingestion complete: 0 chunks indexed
+2026-05-31 17:20:51.829 | INFO     | __main__:ingest:27 - Ingestion terminee: 0 chunks indexes
+2026-05-31 17:21:10.314 | INFO     | app.vectorstore.store:initialize:70 - Vector store initialized
+2026-05-31 17:21:10.315 | INFO     | app.ingest.pipeline:ingest_directory:64 - Found 1 documents to process
+2026-05-31 17:21:10.507 | INFO     | app.ingest.loader:_load_pdf:36 - Loaded PDF: CV_Seydina_Mouhamet_BANE-2.pdf (1 pages, 2976 chars)
+2026-05-31 17:21:10.507 | INFO     | app.embeddings.provider:model:22 - Loading embedding model: sentence-transformers/all-MiniLM-L6-v2
+2026-05-31 17:22:12.120 | INFO     | app.ingest.pipeline:ingest_file:47 - Indexed CV_Seydina_Mouhamet_BANE-2.pdf: 7 chunks, hash=83d5e9e6ba71
+2026-05-31 17:22:12.121 | INFO     | app.ingest.pipeline:ingest_directory:71 - Ingestion complete: 7 chunks indexed
+2026-05-31 17:22:12.121 | INFO     | __main__:ingest:27 - Ingestion terminee: 7 chunks indexes
