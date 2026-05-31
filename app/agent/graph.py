@@ -64,4 +64,4 @@ def run_agent(question: str) -> dict[str, Any]:
             "trace": [],
         }
     )
-    return result  # type: ignore[no-any-return]
+    return result

@@ -62,7 +62,7 @@ warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
 module = ["tests.*", "app.api.routes"]
-disable_error_code = ["misc"]
+disable_error_code = ["misc", "untyped-decorator"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
