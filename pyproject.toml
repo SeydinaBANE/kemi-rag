@@ -9,7 +9,7 @@ description = "Agent RAG avec LangGraph, OpenRouter et pgvector"
 requires-python = ">=3.11"
 dependencies = [
     "langchain-core>=0.3",
-    "langchain-community>=0.3",
+    "langchain-community>=0.4.2",
     "langchain-text-splitters>=0.3",
     "langchain-openrouter>=0.2",
     "langgraph>=0.4",
