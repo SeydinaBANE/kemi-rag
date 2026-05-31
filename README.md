@@ -1,5 +1,17 @@
 # Kemi — Agent RAG
 
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.11+-blue?logo=python" alt="Python">
+  <img src="https://img.shields.io/badge/LangGraph-latest-purple?logo=langchain" alt="LangGraph">
+  <img src="https://img.shields.io/badge/OpenRouter-LLM-orange" alt="OpenRouter">
+  <img src="https://img.shields.io/badge/PostgreSQL-pgvector-4169E1?logo=postgresql" alt="pgvector">
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
+  <br>
+  <a href="https://github.com/SeydinaBANE/kemi-rag/actions/workflows/ci.yml"><img src="https://github.com/SeydinaBANE/kemi-rag/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/SeydinaBANE/kemi-rag/actions/workflows/cd.yml"><img src="https://github.com/SeydinaBANE/kemi-rag/actions/workflows/cd.yml/badge.svg" alt="CD"></a>
+  <img src="https://img.shields.io/badge/version-0.1.1-blue" alt="Version">
+</p>
+
 Agent RAG agentique avec LangGraph, OpenRouter, et pgvector.
 
 ## Quick Start
