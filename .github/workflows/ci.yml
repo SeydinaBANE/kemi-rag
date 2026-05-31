@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgomp1
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install --upgrade ruff mypy pytest-cov bandit safety
+
+      - name: Lint (ruff)
+        run: ruff check app/ tests/ cli.py
+
+      - name: Type check (mypy)
+        run: mypy app/ cli.py
+
+      - name: Security scan (bandit)
+        run: bandit -r app/ cli.py
+
+      - name: Test (pytest)
+        run: pytest --cov --cov-report=xml --cov-fail-under=80
+
+      - name: Build Docker image
+        run: docker build -t kemi:${{ github.sha }} .
