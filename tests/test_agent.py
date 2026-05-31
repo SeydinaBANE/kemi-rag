@@ -162,3 +162,54 @@ class TestRouter:
         }
 
         assert route_after_retrieval(state) == "max_iterations"
+
+    def test_route_after_generate_with_context(self) -> None:
+        from app.agent.router import route_after_generate
+
+        state: GraphState = {
+            "question": "test",
+            "rewritten_question": "",
+            "context": ["some context"],
+            "documents": [],
+            "sources": [],
+            "answer": "generated answer",
+            "iterations": 1,
+            "messages": [],
+            "trace": [],
+        }
+
+        assert route_after_generate(state) == "end"
+
+    def test_route_after_generate_no_context_below_max(self) -> None:
+        from app.agent.router import route_after_generate
+
+        state: GraphState = {
+            "question": "test",
+            "rewritten_question": "",
+            "context": [],
+            "documents": [],
+            "sources": [],
+            "answer": "",
+            "iterations": 1,
+            "messages": [],
+            "trace": [],
+        }
+
+        assert route_after_generate(state) == "retrieve"
+
+    def test_route_after_generate_no_context_at_max(self) -> None:
+        from app.agent.router import route_after_generate
+
+        state: GraphState = {
+            "question": "test",
+            "rewritten_question": "",
+            "context": [],
+            "documents": [],
+            "sources": [],
+            "answer": "",
+            "iterations": 3,
+            "messages": [],
+            "trace": [],
+        }
+
+        assert route_after_generate(state) == "end"

@@ -16,16 +16,20 @@
 - [ ] Timeout configurable par etape du graphe
 - [ ] Fallback LLM si OpenRouter est indisponible
 
-## Phase 12b : Tests & Couverture
+## Phase 12b : Tests & Couverture ✅
 
-- [ ] Tests pour `app/agent/nodes/grade.py` (grade node)
-- [ ] Tests pour `app/agent/nodes/retrieve.py` (retrieve node)
-- [ ] Tests pour `app/ingest/pipeline.py` (pipeline complet)
-- [ ] Tests pour `app/vectorstore/store.py` (vector store CRUD)
-- [ ] Tests pour `app/embeddings/provider.py` (embeddings)
-- [ ] Tests pour `app/agent/graph.py` (creation et execution du graphe)
-- [ ] Tests pour `app/utils/retry.py` (retry decorator)
-- [ ] Objectif : couverture >= 80%
+- [x] Tests pour `app/agent/nodes/grade.py` (grade node)
+- [x] Tests pour `app/agent/nodes/retrieve.py` (retrieve node)
+- [x] Tests pour `app/ingest/pipeline.py` (pipeline complet)
+- [x] Tests pour `app/vectorstore/store.py` (vector store CRUD)
+- [x] Tests pour `app/embeddings/provider.py` (embeddings)
+- [x] Tests pour `app/agent/graph.py` (creation et execution du graphe)
+- [x] Tests pour `app/utils/retry.py` (retry decorator)
+- [x] Tests pour `app/ingest/loader.py` (_load_pdf, _load_text, load_document)
+- [x] Tests pour `app/utils/hash.py` (sha256_hash, sha256_file)
+- [x] Tests etendus pour `app/agent/router.py` (route_after_generate)
+- [x] Tests etendus pour `app/api/routes.py` (health, query, ingest)
+- [x] **Objectif : couverture >= 80%** → atteint **98.51%** (101 tests)
 
 ## Phase 13 : UX & Features
 

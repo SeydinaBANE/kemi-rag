@@ -91,7 +91,7 @@ curl -X POST http://localhost:8000/ingest \
 
 ```bash
 make test       # pytest
-make coverage   # pytest --cov --cov-fail-under=50
+make coverage   # pytest --cov --cov-fail-under=80
 make security   # bandit + safety
 ```
 

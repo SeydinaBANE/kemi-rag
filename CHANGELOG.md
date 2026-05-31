@@ -5,6 +5,26 @@ Toutes les modifications notables de ce projet sont documentees ici.
 Format base sur [Keep a Changelog](https://keepachangelog.com/),
 et ce projet adhere au [Semantic Versioning](https://semver.org/).
 
+## [0.2.0] - 2026-05-31
+
+### Ajoute
+- 83 nouveaux tests (101 total), couverture passee de 55% a 98.51%
+- Tests pour `app/utils/retry.py` (retry + async_retry decorators)
+- Tests pour `app/agent/nodes/grade.py` (grade node avec LLM judge)
+- Tests pour `app/agent/nodes/retrieve.py` (retrieve node avec mocks)
+- Tests pour `app/ingest/pipeline.py` (pipeline d'ingestion complet)
+- Tests pour `app/ingest/loader.py` (_load_pdf, _load_text)
+- Tests pour `app/embeddings/provider.py` (caching, batch, dimension)
+- Tests pour `app/vectorstore/store.py` (CRUD, session, initialization)
+- Tests pour `app/agent/graph.py` (creation et execution du graphe)
+- Tests pour `app/utils/hash.py` (sha256_hash, sha256_file)
+- Tests etendus pour `app/agent/router.py` (route_after_generate)
+- Tests etendus pour `app/api/routes.py` (5 nouveaux cas)
+- Seuil de couverture remonte a 80%
+
+### Corrige
+- Docker build : `COPY /root/.cache` supprime (n'existe pas avec --no-cache-dir)
+
 ## [0.1.1] - 2026-05-31
 
 ### Corrige
