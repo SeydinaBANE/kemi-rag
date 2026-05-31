@@ -21,7 +21,6 @@ RUN groupadd -r app && useradd -r -g app -d /app -s /bin/false app
 WORKDIR /app
 
 COPY --from=builder /root/.local /usr/local
-COPY --from=builder /root/.cache /root/.cache
 
 COPY . .
 
