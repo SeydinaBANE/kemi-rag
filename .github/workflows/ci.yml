@@ -31,12 +31,13 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install --upgrade ruff mypy pytest-cov bandit safety
+          pip install types-cachetools types-requests pydantic-settings
 
       - name: Lint (ruff)
         run: ruff check app/ tests/ cli.py
 
       - name: Type check (mypy)
-        run: mypy app/ cli.py
+        run: mypy app/ tests/ cli.py
 
       - name: Security scan (bandit)
         run: bandit -r app/ cli.py
