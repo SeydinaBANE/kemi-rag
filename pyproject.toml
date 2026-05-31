@@ -28,7 +28,7 @@ dependencies = [
     "unstructured>=0.16",
     "pymupdf>=1.25",
     "python-multipart>=0.0",
-    "cachetools>=5.0",
+    "cachetools>=7.1.4",
 ]
 
 [project.optional-dependencies]
